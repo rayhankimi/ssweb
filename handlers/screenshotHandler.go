@@ -25,7 +25,7 @@ func ScreenshotHandler(c *gin.Context) {
 		URL:      c.Query("url"),
 		Device:   c.Query("device"),
 		FullPage: c.Query("fullPage") == "true",
-		Quality:  90,
+		Quality:  20,
 	}
 
 	if req.URL == "" {

@@ -2,12 +2,12 @@ package utils
 
 import (
 	"github.com/joho/godotenv"
-	"log"
+	"github.com/sirupsen/logrus"
 )
 
 func LoadEnv() {
 	err := godotenv.Load()
 	if err != nil {
-		log.Fatal("Error loading .env file")
+		logrus.Warning("Error loading .env file")
 	}
 }
