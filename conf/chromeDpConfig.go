@@ -143,32 +143,32 @@ func isConstrainedEnvironment() bool {
 // BuildChromeDPOptions builds ChromeDP allocator options from config
 func (c *ChromeDPConfig) BuildChromeDPOptions() []chromedp.ExecAllocatorOption {
 	opts := []chromedp.ExecAllocatorOption{
-		// Basic flags
+		// Basic
 		chromedp.Flag("headless", c.Headless),
 		chromedp.Flag("disable-gpu", c.DisableGPU),
 		chromedp.Flag("disable-dev-shm-usage", c.DisableDevShmUsage),
 
-		// Performance optimizations
+		// Performance
 		chromedp.Flag("no-sandbox", c.NoSandbox),
 		chromedp.Flag("disable-setuid-sandbox", c.DisableSetuidSandbox),
-		chromedp.Flag("single-process", true), // Mode single process untuk headless
-		chromedp.Flag("no-zygote", true),      // Nonaktifkan zygote process
+		chromedp.Flag("single-process", true),
+		chromedp.Flag("no-zygote", true),
 		chromedp.Flag("disable-software-rasterizer", true),
 		chromedp.Flag("disable-background-networking", true),
 
-		// Network optimizations
+		// Network
 		chromedp.Flag("disable-default-apps", true),
 		chromedp.Flag("disable-extensions", true),
 		chromedp.Flag("disable-sync", true),
 		chromedp.Flag("metrics-recording-only", true),
 		chromedp.Flag("safebrowsing-disable-auto-update", true),
 
-		// Rendering optimizations
+		// Rendering
 		chromedp.Flag("disable-features", "TranslateUI,BlinkGenPropertyTrees,site-per-process"),
-		chromedp.Flag("blink-settings", "imagesEnabled=false"), // Nonaktifkan gambar
+		chromedp.Flag("blink-settings", "imagesEnabled=false"),
 		chromedp.Flag("force-color-profile", "srgb"),
 
-		// Window/User Agent
+		// Other
 		chromedp.WindowSize(1920, 1080),
 		chromedp.UserAgent(c.UserAgent),
 	}

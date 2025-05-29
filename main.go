@@ -64,11 +64,11 @@ func main() {
 	//	return
 	//}
 
-	router.GET("/ping", func(c *gin.Context) {
+	router.POST("/ping", func(c *gin.Context) {
 		c.String(200, "Pong")
 	})
 
-	router.GET("/ssweb", middleware.TokenAuthMiddleware(), handlers.ScreenshotHandler)
+	router.POST("/ssweb", middleware.TokenAuthMiddleware(), handlers.ScreenshotHandler)
 
 	port := os.Getenv("PORT")
 	//port := "8080"
