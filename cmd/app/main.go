@@ -9,27 +9,26 @@ import (
 	"net/http"
 	"os"
 	"os/signal"
-	"ssweb/conf"
-	"ssweb/handlers"
-	"ssweb/middleware"
-	"ssweb/utils"
+	configs2 "ssweb/internal/configs"
+	http2 "ssweb/internal/delivery/http"
+	"ssweb/internal/middleware"
 	"syscall"
 	"time"
 )
 
 func init() {
 	// Load Env
-	utils.LoadEnv()
+	configs2.LoadEnv()
 
 	// Initialize ChromeDP allocator during start
-	if err := conf.InitializeChromeDPAllocator(); err != nil {
+	if err := configs2.InitializeChromeDPAllocator(); err != nil {
 		log.Fatal("Failed to initialize ChromeDP allocator:", err)
 	}
 
 	log.Println("ChromeDP allocator initialized successfully")
 
 	// Log environment detection
-	if conf.GetChromeDPConfig().NoSandbox {
+	if configs2.GetChromeDPConfig().NoSandbox {
 		log.Println("Running in constrained environment (Docker/limited resources) - sandbox disabled")
 	} else {
 		log.Println("Running in normal environment - sandbox enabled")
@@ -68,7 +67,7 @@ func main() {
 		c.String(200, "Pong")
 	})
 
-	router.POST("/ssweb", middleware.TokenAuthMiddleware(), handlers.ScreenshotHandler)
+	router.POST("/ssweb", middleware.TokenAuthMiddleware(), http2.ScreenshotHandler)
 
 	port := os.Getenv("PORT")
 	//port := "8080"
@@ -90,7 +89,7 @@ func main() {
 
 	log.Println("Shutting down server...")
 
-	conf.Cleanup()
+	configs2.Cleanup()
 
 	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
 	defer cancel()

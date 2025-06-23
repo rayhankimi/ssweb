@@ -1,14 +1,14 @@
-package handlers
+package http
 
 import (
 	"github.com/gin-gonic/gin"
 	"net/http"
-	"ssweb/types"
-	"ssweb/utils"
+	"ssweb/internal/core/entity"
+	"ssweb/internal/core/usecase"
 )
 
 func ScreenshotHandler(c *gin.Context) {
-	var req types.ScreenshotRequest
+	var req entity.ScreenshotRequest
 
 	// Bind JSON body ke struct
 	if err := c.ShouldBindJSON(&req); err != nil {
@@ -25,7 +25,7 @@ func ScreenshotHandler(c *gin.Context) {
 		return
 	}
 
-	imgBuf, err := utils.TakeScreenshot(req)
+	imgBuf, err := usecase.TakeScreenshot(req)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{
 			"error": err.Error(),

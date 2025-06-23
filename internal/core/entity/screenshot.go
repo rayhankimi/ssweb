@@ -1,4 +1,4 @@
-package types
+package entity
 
 type ScreenshotRequest struct {
 	URL      string `json:"url" binding:"required"`

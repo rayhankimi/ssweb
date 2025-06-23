@@ -1,14 +1,14 @@
-package utils
+package usecase
 
 import (
 	"context"
 	"github.com/chromedp/chromedp"
 	"github.com/chromedp/chromedp/device"
-	"ssweb/types"
+	"ssweb/internal/core/entity"
 	"time"
 )
 
-func TakeScreenshot(req types.ScreenshotRequest) ([]byte, error) {
+func TakeScreenshot(req entity.ScreenshotRequest) ([]byte, error) {
 	// Setup ChromeDP dengan options yang lebih robust
 	opts := append(chromedp.DefaultExecAllocatorOptions[:],
 		chromedp.Flag("headless", true),
